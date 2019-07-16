@@ -3,8 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "bulma": "^0.7.5",
+    "node-sass": "^4.12.0",
     "react": "^16.8.6",
-    "react-bulma-components": "^2.3.0",
     "react-dom": "^16.8.6",
     "react-scripts": "3.0.1"
   },
@@ -12,7 +13,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "css-build": "node-sass --omit-source-map-url src/mystyles.scss src/mystyles.css",
+    "css-watch": "npm run css-build -- --watch"
   },
   "eslintConfig": {
     "extends": "react-app"
