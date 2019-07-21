@@ -2,44 +2,39 @@ import React from "react";
 
 import MainComponent from "./MainComponent/MainComponent";
 import Navigation from "./Navigation/Navigation";
+import UploadPart from "./UploadPart/UploadPart";
 
 
-export default () => {
-    return (
-        <div>
 
-        
-        <Navigation />
-        <section id="test" class="hero is-primary is-fullheight-with-navbar">
-            
-            <div class="hero-body">
-                <div class="container">
-                    <h1 class="title is-1">
-                        Załaduj swoje zdjęcia
-                    </h1>
-                    <h3 className="subtitle is-4">Nawet do 30 minut. Ty decydujesz.</h3>
+export default class App extends React.Component {
+    state = { imagePrev: null };
 
-                        <div className="file is-medium is-dark">
-                            <label className="file-label">
-                                <input className="file-input" type="file" name="resume" />
-                                <span className="file-cta">
-                                    <span className="file-icon">
-                                        <i className="fas fa-upload"></i>
-                                    </span>
-                                    <span className="file-label">
-                                        Twoje zdjęcie
-                        </span>
-                                </span>
-                            </label>
-                        </div>
-                        <MainComponent />
-                </div>
+    handleImageLoad = async (imageData) => {
+        await this.setState({ imagePrev: imageData });
+    }
 
-                
-            </div>
-            
+    ifImageChosen = () => {
+        if(this.state.imagePrev){
+            return <UploadPart imagePrev={this.state.imagePrev} />
+        }
+        else {
+            return <MainComponent handleImageLoad={this.handleImageLoad} />
+        }
+    }
 
-                <div class="hero-foot">
+    render () {
+        return (
+            <div>
+                <Navigation />
+                <section id="test" className="hero is-primary is-fullheight-with-navbar">
+
+                    <div className="hero-body">
+                        {this.ifImageChosen()}                        
+                    </div>
+                    <button className="button is-info" onClick={()=>console.log(this.state.imagePrev)}>Click</button>
+
+
+                    {/* <div class="hero-foot">
                     <nav class="tabs">
                         <div class="container">
                             <ul>
@@ -52,8 +47,10 @@ export default () => {
                             </ul>
                         </div>
                     </nav>
-                </div>
-        </section>
-        </div>
-    )
+                </div> */}
+                </section>
+            </div>
+        )
+    }
+
 }

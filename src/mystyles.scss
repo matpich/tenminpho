@@ -48,5 +48,15 @@ $navbar-breakpoint: 236px + (2 * $gap);
     background-position: center;
 }
 
+.label {
+    color: rgb(255,255,255) !important;
+}
+
+@media (max-width: 350px) {
+    .hero-body {
+        padding: 10px !important;
+    }
+}
+
 // Import only what you need from Bulma
 @import "../node_modules/bulma/bulma.sass";

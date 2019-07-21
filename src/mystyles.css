@@ -10,6 +10,13 @@
   background-image: url(aa.svg);
   background-position: center; }
 
+.label {
+  color: white !important; }
+
+@media (max-width: 350px) {
+  .hero-body {
+    padding: 10px !important; } }
+
 /*! bulma.io v0.7.5 | MIT License | github.com/jgthms/bulma */
 @keyframes spinAround {
   from {
