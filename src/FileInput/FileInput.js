@@ -14,6 +14,7 @@ export default class FileInput extends React.Component {
 
         reader.onload = (e) => {
             this.props.imageData(e.target.result);
+            localStorage.setItem('imgToUpload', e.target.result)
         }
         reader.readAsDataURL(file);
     }

@@ -13,6 +13,7 @@ export default class App extends React.Component {
         await this.setState({ imagePrev: imageData });
     }
 
+    //shows correct component - if user has chosen photo it will re-render with UploadPart component
     ifImageChosen = () => {
         if(this.state.imagePrev){
             return <UploadPart imagePrev={this.state.imagePrev} />
@@ -31,8 +32,6 @@ export default class App extends React.Component {
                     <div className="hero-body">
                         {this.ifImageChosen()}                        
                     </div>
-                    <button className="button is-info" onClick={()=>console.log(this.state.imagePrev)}>Click</button>
-
 
                     {/* <div class="hero-foot">
                     <nav class="tabs">
