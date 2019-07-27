@@ -5,14 +5,14 @@ import ImagePreview from "../ImagePreview/ImagePreview";
 export default (props) => {
     return (
         <div>
-            <ImagePreview imagePrev={props.imagePrev} />
+            <ImagePreview />
             <div className="block" ></div>
             <form id="submit-part">
                 <div className="field has-addons ">
                     <div className="control has-icons-left">
                         <input type="number" min="5" max="30" className="input is-medium" />
-                        <span class="icon is-small is-left">
-                            <i class="fas fa-clock fa-xs"></i>
+                        <span className="icon is-small is-left">
+                            <i className="fas fa-clock fa-xs"></i>
                         </span>
                     </div>
                     <div className="control">

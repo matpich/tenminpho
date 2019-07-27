@@ -8,15 +8,25 @@ export default class FileInput extends React.Component {
 
     }
 
-    inputValue = () => {
+    inputValue =  () => {
+        //reads image data from input tag
         const file = this.inputRef.current.files[0];
+        //creating new FileReader object
         const reader = new FileReader();
 
-        reader.onload = (e) => {
-            this.props.imageData(e.target.result);
-            localStorage.setItem('imgToUpload', e.target.result)
+        //it's onload event handler
+        reader.onload =  (e) => {
+            //this loads image data to local storage
+            localStorage.setItem('imgToUpload', e.target.result);
         }
+        //start reading file data, once finished resolves onload event
         reader.readAsDataURL(file);
+        //redirect to '/upload'
+        window.location = `${window.location.origin}/upload`;
+    }
+
+    localTest () {
+        localStorage.setItem('testowe', 'qwerty');
     }
 
 

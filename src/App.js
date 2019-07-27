@@ -1,5 +1,7 @@
 import React from "react";
 
+import {BrowserRouter, Route} from "react-router-dom";
+
 import MainComponent from "./MainComponent/MainComponent";
 import Navigation from "./Navigation/Navigation";
 import UploadPart from "./UploadPart/UploadPart";
@@ -7,22 +9,6 @@ import UploadPart from "./UploadPart/UploadPart";
 
 
 export default class App extends React.Component {
-    state = { imagePrev: null };
-
-    handleImageLoad = async (imageData) => {
-        await this.setState({ imagePrev: imageData });
-    }
-
-    //shows correct component - if user has chosen photo it will re-render with UploadPart component
-    ifImageChosen = () => {
-        if(this.state.imagePrev){
-            return <UploadPart imagePrev={this.state.imagePrev} />
-        }
-        else {
-            return <MainComponent handleImageLoad={this.handleImageLoad} />
-        }
-    }
-
     render () {
         return (
             <div>
@@ -30,7 +16,12 @@ export default class App extends React.Component {
                 <section id="test" className="hero is-primary is-fullheight-with-navbar">
 
                     <div className="hero-body">
-                        {this.ifImageChosen()}                        
+                        <BrowserRouter>
+                            <div>
+                                <Route path="/" exact component={MainComponent} />
+                                <Route path="/upload" component={UploadPart} />
+                            </div>
+                        </BrowserRouter>                      
                     </div>
 
                     {/* <div class="hero-foot">
