@@ -5,6 +5,8 @@ import {BrowserRouter, Route} from "react-router-dom";
 import MainComponent from "./MainComponent/MainComponent";
 import Navigation from "./Navigation/Navigation";
 import UploadPart from "./UploadPart/UploadPart";
+import SignUp from "./SignUp/SignUp";
+import Login from "./Login/Login";
 
 
 
@@ -17,10 +19,10 @@ export default class App extends React.Component {
 
                     <div className="hero-body">
                         <BrowserRouter>
-                            <div>
                                 <Route path="/" exact component={MainComponent} />
                                 <Route path="/upload" component={UploadPart} />
-                            </div>
+                                <Route path="/signup" component={SignUp} />
+                                <Route path="/login" component={Login} />
                         </BrowserRouter>                      
                     </div>
 

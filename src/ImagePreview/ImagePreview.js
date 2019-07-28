@@ -7,6 +7,10 @@ export default class ImagePreview extends React.Component {
 
     async componentWillMount() {
         const imageData = await localStorage.getItem("imgToUpload");
+
+        //if no image is loaded redirect to main page
+        if (!imageData) window.location = window.location.origin;
+        
         this.setState({imageData});
     }
 

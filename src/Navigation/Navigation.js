@@ -4,7 +4,7 @@ export default () => {
     return (
         <nav className="navbar" role="navigation" aria-label="main navigation">
             <div className="navbar-brand">
-                <a className="navbar-item" href="https://bulma.io">
+                <a className="navbar-item" href={window.location.origin}>
                     <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28" alt="logo" />
                 </a>
             </div>
@@ -12,11 +12,11 @@ export default () => {
             <div className="navbar-end">
                 <div className="navbar-item">
                     <div className="buttons">
-                        <a href="#" className="button is-primary">
-                            <strong>Sign up</strong>
+                        <a href={`${window.location.origin}/signup`} className="button is-primary">
+                            <strong>Zarejestruj</strong>
                         </a>
-                        <a href="#" className="button is-light">
-                            Log in
+                        <a href={`${window.location.origin}/login`} className="button is-light">
+                            Zaloguj
                         </a>
                     </div>
                 </div>
