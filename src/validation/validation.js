@@ -1,8 +1,21 @@
-import Joi from "@hapi/joi";
+import Joi from '@hapi/joi';
 
-const loginSchema = {
-    email: Joi.string().email({ minDomainSegments: 2 }),
-    password: Joi.string().regex(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/)
+const loginEmailValidation = email => {
+  return Joi.validate(
+    email,
+    Joi.string()
+      .email({ minDomainSegments: 2 })
+      .required()
+  );
 };
 
-export {loginSchema};
+const loginPasswordlValidation = email => {
+  return Joi.validate(
+    email,
+    Joi.string()
+      .regex(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/)
+      .required()
+  );
+};
+
+export { loginEmailValidation, loginPasswordlValidation };

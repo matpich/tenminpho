@@ -1,53 +1,74 @@
-import React from "react";
+import React from 'react';
 
-import Form from "../Form/Form";
-import Joi from "@hapi/joi";
-import { loginSchema } from "../validation/validation";
-
-const loginConfig = [
-    {
-        labelText: "E-mail",
-        type: "email",
-        placeholder: "Podaj adres email"
-    },
-    {
-        labelText: "Hasło",
-        type: "password",
-        placeholder: "Podaj hasło."
-    }
-]
+import Form from '../Form/Form';
+import Joi from '@hapi/joi';
+import {
+  loginEmailValidation,
+  loginPasswordlValidation
+} from '../validation/validation';
 
 export default class Login extends React.Component {
-    //receives array of input values, in Login case it will be 2 element array where index 0 is email and index 1 is password
-    validateLogin (inputsValues) {
-        //abortEarly prevents Joi from stop validating after first error
-        const { error, value } = Joi.validate({ email: inputsValues[0], password: inputsValues[1] }, loginSchema, { abortEarly: false });
-        if(!error) {
-            console.log("Wszystko ok.")
-        } else {
-            console.log(error.details);
-        }
-        
+  constructor(props) {
+    super(props);
+
+    //config object has to be declared in constructor because I need to create ref to change child state
+    this.loginConfig = [
+      {
+        labelText: 'E-mail',
+        type: 'email',
+        placeholder: 'Podaj adres email',
+        errorMessage: 'Nieprawidłowy adres e-mail.',
+        reference: React.createRef()
+      },
+      {
+        labelText: 'Hasło',
+        type: 'password',
+        placeholder: 'Podaj hasło.',
+        errorMessage: 'Nieprawidłowe hasło.',
+        reference: React.createRef()
+      }
+    ];
+  }
+
+  //receives array of input values, in Login case it will be 2 element array where index 0 is email and index 1 is password
+  //validateLogin method will be passed as props to <Form /> component
+  validateLogin = inputsValues => {
+    // refers error visibility handling function
+    const emailflipError = this.loginConfig[0].reference.current.flipError;
+    const passwordflipError = this.loginConfig[1].reference.current.flipError;
+
+    const emailValidationResult = loginEmailValidation(inputsValues[0]);
+    emailflipError(emailValidationResult.error);
+
+    const passwordValidationResult = loginPasswordlValidation(inputsValues[1]);
+    passwordflipError(passwordValidationResult.error);
+
+    if (!emailValidationResult.error && !passwordValidationResult.error) {
+      return true;
+    } else {
+      return false;
     }
+  };
 
-    render() {
-        return (
-            <div className="container has-centered-text">
-                <div className="columns">
+  render() {
+    return (
+      <div className="container has-centered-text">
+        <div className="columns">
+          <div className="column" />
 
-                    <div className="column"></div>
-
-                    <div className="column is-half">
-                        <div className="box">
-                            <Form loginConfig={loginConfig} validate={this.validateLogin}/>
-                        </div>
-                    </div>
-
-                    <div className="column"></div>
-
-                </div>
+          <div className="column is-half">
+            <div className="box">
+              <Form
+                name="Zaloguj się"
+                config={this.loginConfig}
+                validate={this.validateLogin}
+              />
             </div>
+          </div>
 
-        )
-    }
+          <div className="column" />
+        </div>
+      </div>
+    );
+  }
 }
