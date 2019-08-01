@@ -2,6 +2,12 @@ import React from 'react';
 
 import Form from '../Form/Form';
 
+import {
+  emailValidation,
+  passwordlValidation,
+  nickNameValidation
+} from '../validation/validation';
+
 export default class SignUp extends React.Component {
   constructor(props) {
     super(props);
@@ -26,18 +32,52 @@ export default class SignUp extends React.Component {
         labelText: 'Hasło',
         type: 'password',
         placeholder: 'Podaj hasło.',
-        errorMessage: 'Nieprawidłowe hasło.',
+        errorMessage:
+          'Hasło powinno składać się conajmniej z 8 znaków oraz zawierać minimum 1 cyfrę.',
         reference: React.createRef()
       },
       {
         labelText: 'Powtórz hasło',
         type: 'password',
         placeholder: 'Podaj hasło.',
-        errorMessage: 'Nieprawidłowe hasło.',
+        errorMessage: 'Hasła nie są identyczne.',
         reference: React.createRef()
       }
     ];
   }
+
+  validateSignUp = inputsValues => {
+    // refers error visibility handling function
+    const nickflipError = this.signupConfig[0].reference.current.flipError;
+    const emailflipError = this.signupConfig[1].reference.current.flipError;
+    const passwordflipError = this.signupConfig[2].reference.current.flipError;
+    const repeatPasswordflipError = this.signupConfig[3].reference.current
+      .flipError;
+
+    const nickValidationResult = nickNameValidation(inputsValues[0]);
+    nickflipError(nickValidationResult.error);
+
+    const emailValidationResult = emailValidation(inputsValues[1]);
+    emailflipError(emailValidationResult.error);
+
+    const passwordValidationResult = passwordlValidation(inputsValues[2]);
+    passwordflipError(passwordValidationResult.error);
+
+    const passwordComparingResult = inputsValues[2] !== inputsValues[3];
+    repeatPasswordflipError(passwordComparingResult);
+
+    if (
+      nickValidationResult &&
+      !emailValidationResult.error &&
+      !passwordValidationResult.error &&
+      !passwordComparingResult
+    ) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
   render() {
     return (
       <div className="container has-centered-text">
@@ -49,7 +89,7 @@ export default class SignUp extends React.Component {
               <Form
                 name="Zarejestruj się"
                 config={this.signupConfig}
-                validate={this.validateLogin}
+                validate={this.validateSignUp}
               />
             </div>
           </div>

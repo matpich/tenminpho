@@ -1,11 +1,8 @@
 import React from 'react';
 
 import Form from '../Form/Form';
-import Joi from '@hapi/joi';
-import {
-  loginEmailValidation,
-  loginPasswordlValidation
-} from '../validation/validation';
+
+import { emailValidation, passwordlValidation } from '../validation/validation';
 
 export default class Login extends React.Component {
   constructor(props) {
@@ -37,10 +34,10 @@ export default class Login extends React.Component {
     const emailflipError = this.loginConfig[0].reference.current.flipError;
     const passwordflipError = this.loginConfig[1].reference.current.flipError;
 
-    const emailValidationResult = loginEmailValidation(inputsValues[0]);
+    const emailValidationResult = emailValidation(inputsValues[0]);
     emailflipError(emailValidationResult.error);
 
-    const passwordValidationResult = loginPasswordlValidation(inputsValues[1]);
+    const passwordValidationResult = passwordlValidation(inputsValues[1]);
     passwordflipError(passwordValidationResult.error);
 
     if (!emailValidationResult.error && !passwordValidationResult.error) {

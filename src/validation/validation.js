@@ -1,6 +1,6 @@
 import Joi from '@hapi/joi';
 
-const loginEmailValidation = email => {
+const emailValidation = email => {
   return Joi.validate(
     email,
     Joi.string()
@@ -9,13 +9,22 @@ const loginEmailValidation = email => {
   );
 };
 
-const loginPasswordlValidation = email => {
+const passwordlValidation = pass => {
   return Joi.validate(
-    email,
+    pass,
     Joi.string()
       .regex(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/)
       .required()
   );
 };
 
-export { loginEmailValidation, loginPasswordlValidation };
+const nickNameValidation = nick => {
+  return Joi.validate(
+    nick,
+    Joi.string()
+      .min(3)
+      .required()
+  );
+};
+
+export { emailValidation, passwordlValidation, nickNameValidation };
