@@ -17,8 +17,8 @@ export default () => {
           />
         </a>
       </div>
-      <LoggedNav />
-      {/* <NotLoggedNav /> */}
+      {/* <LoggedNav /> */}
+      <NotLoggedNav />
     </nav>
   );
 };

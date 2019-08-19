@@ -3,6 +3,7 @@ import React from 'react';
 import Form from '../Form/Form';
 
 import { emailValidation, passwordlValidation } from '../validation/validation';
+import axios from 'axios';
 
 export default class Login extends React.Component {
   constructor(props) {
@@ -29,21 +30,19 @@ export default class Login extends React.Component {
 
   //receives array of input values, in Login case it will be 2 element array where index 0 is email and index 1 is password
   //validateLogin method will be passed as props to <Form /> component
-  validateLogin = inputsValues => {
+  validateLogin = async inputsValues => {
     // refers error visibility handling function
     const emailflipError = this.loginConfig[0].reference.current.flipError;
     const passwordflipError = this.loginConfig[1].reference.current.flipError;
 
-    const emailValidationResult = emailValidation(inputsValues[0]);
-    emailflipError(emailValidationResult.error);
-
-    const passwordValidationResult = passwordlValidation(inputsValues[1]);
-    passwordflipError(passwordValidationResult.error);
-
-    if (!emailValidationResult.error && !passwordValidationResult.error) {
-      return true;
-    } else {
-      return false;
+    try {
+      const result = await axios.post('http://localhost:3001/users', {
+        email: inputsValues[0],
+        password: inputsValues[1]
+      });
+      console.log(result);
+    } catch (err) {
+      console.log(err);
     }
   };
 

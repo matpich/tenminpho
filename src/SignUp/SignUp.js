@@ -2,6 +2,8 @@ import React from 'react';
 
 import Form from '../Form/Form';
 
+import axios from 'axios';
+
 import {
   emailValidation,
   passwordlValidation,
@@ -45,6 +47,18 @@ export default class SignUp extends React.Component {
       }
     ];
   }
+
+  registerPost = async user => {
+    try {
+      await axios.post('http://localhost:3001/users', {
+        name: user[0],
+        email: user[1],
+        password: user[2]
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   validateSignUp = inputsValues => {
     // refers error visibility handling function
@@ -90,6 +104,7 @@ export default class SignUp extends React.Component {
                 name="Zarejestruj się"
                 config={this.signupConfig}
                 validate={this.validateSignUp}
+                submit={this.registerPost}
               />
             </div>
           </div>

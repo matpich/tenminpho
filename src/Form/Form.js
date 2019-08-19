@@ -25,8 +25,9 @@ export default class LoginForm extends React.Component {
     e.preventDefault();
     //it always receives array of inputs values, this.props.validate is a function that comes from Login component or SignUp component
     const validationResult = this.props.validate(this.state.formFieldsValues);
-
     if (validationResult) {
+      //this.props.submit is a function passed from parrent component - it handles submiting a form
+      this.props.submit(this.state.formFieldsValues);
       window.location = `${window.location.origin}`;
       console.log(`${window.location.origin}`);
     } else {
