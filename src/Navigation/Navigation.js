@@ -1,8 +1,8 @@
-import React from 'react';
+import React from "react";
 
-import Statistic from '../Statistic/Statistic';
-import NotLoggedNav from '../NotLoggedNav/NotLoggedNav';
-import LoggedNav from '../LoggedNav/LoggedNav';
+import Statistic from "../Statistic/Statistic";
+import NotLoggedNav from "../NotLoggedNav/NotLoggedNav";
+import LoggedNav from "../LoggedNav/LoggedNav";
 
 export default () => {
   return (

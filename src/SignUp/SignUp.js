@@ -1,14 +1,14 @@
-import React from 'react';
+import React from "react";
 
-import Form from '../Form/Form';
+import Form from "../Form/Form";
 
-import axios from 'axios';
+import axios from "axios";
 
 import {
   emailValidation,
   passwordlValidation,
   nickNameValidation
-} from '../validation/validation';
+} from "../validation/validation";
 
 export default class SignUp extends React.Component {
   constructor(props) {
@@ -17,32 +17,33 @@ export default class SignUp extends React.Component {
     //config object has to be declared in constructor because I need to create ref to change child state
     this.signupConfig = [
       {
-        labelText: 'Nazwa użytkownika',
-        type: 'text',
-        placeholder: 'Podaj nick',
-        errorMessage: 'Nieprawidłowa nazwa uzytkownika.',
+        labelText: "Nazwa użytkownika",
+        type: "text",
+        placeholder: "Podaj nick",
+        errorMessage: "Nieprawidłowa nazwa uzytkownika.",
         reference: React.createRef()
       },
       {
-        labelText: 'E-mail',
-        type: 'email',
-        placeholder: 'Podaj adres email',
-        errorMessage: 'Nieprawidłowy adres e-mail.',
-        reference: React.createRef()
-      },
-      {
-        labelText: 'Hasło',
-        type: 'password',
-        placeholder: 'Podaj hasło.',
+        labelText: "E-mail",
+        type: "email",
+        placeholder: "Podaj adres email",
         errorMessage:
-          'Hasło powinno składać się conajmniej z 8 znaków oraz zawierać minimum 1 cyfrę.',
+          "Nieprawidłowy adres e-mail lub użytkownik o podanym adresie już istnieje.",
         reference: React.createRef()
       },
       {
-        labelText: 'Powtórz hasło',
-        type: 'password',
-        placeholder: 'Podaj hasło.',
-        errorMessage: 'Hasła nie są identyczne.',
+        labelText: "Hasło",
+        type: "password",
+        placeholder: "Podaj hasło.",
+        errorMessage:
+          "Hasło powinno składać się conajmniej z 8 znaków oraz zawierać minimum 1 cyfrę.",
+        reference: React.createRef()
+      },
+      {
+        labelText: "Powtórz hasło",
+        type: "password",
+        placeholder: "Podaj hasło.",
+        errorMessage: "Hasła nie są identyczne.",
         reference: React.createRef()
       }
     ];
@@ -50,12 +51,14 @@ export default class SignUp extends React.Component {
 
   registerPost = async user => {
     try {
-      await axios.post('http://localhost:3001/users', {
+      const response = await axios.post("http://localhost:3001/users", {
         name: user[0],
         email: user[1],
         password: user[2]
       });
     } catch (error) {
+      //if error that means user alredy exists
+      this.signupConfig[1].reference.current.flipError(true);
       console.log(error);
     }
   };

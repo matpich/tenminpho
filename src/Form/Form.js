@@ -1,8 +1,8 @@
-import React from 'react';
+import React from "react";
 
-import './Form.css';
+import "./Form.css";
 
-import FormField from '../FormField/FormField';
+import FormField from "../FormField/FormField";
 
 export default class LoginForm extends React.Component {
   constructor(props) {
@@ -10,7 +10,7 @@ export default class LoginForm extends React.Component {
 
     this.state = {
       formFieldList: null,
-      formFieldsValues: new Array(this.props.config.length).fill('')
+      formFieldsValues: new Array(this.props.config.length).fill("")
     };
   }
 
@@ -28,7 +28,7 @@ export default class LoginForm extends React.Component {
     if (validationResult) {
       //this.props.submit is a function passed from parrent component - it handles submiting a form
       this.props.submit(this.state.formFieldsValues);
-      window.location = `${window.location.origin}`;
+      //window.location = `${window.location.origin}`;
       console.log(`${window.location.origin}`);
     } else {
       return;

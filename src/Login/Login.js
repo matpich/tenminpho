@@ -1,9 +1,9 @@
-import React from 'react';
+import React from "react";
 
-import Form from '../Form/Form';
+import Form from "../Form/Form";
 
-import { emailValidation, passwordlValidation } from '../validation/validation';
-import axios from 'axios';
+import { emailValidation, passwordlValidation } from "../validation/validation";
+import axios from "axios";
 
 export default class Login extends React.Component {
   constructor(props) {
@@ -12,21 +12,33 @@ export default class Login extends React.Component {
     //config object has to be declared in constructor because I need to create ref to change child state
     this.loginConfig = [
       {
-        labelText: 'E-mail',
-        type: 'email',
-        placeholder: 'Podaj adres email',
-        errorMessage: 'Nieprawidłowy adres e-mail.',
+        labelText: "E-mail",
+        type: "email",
+        placeholder: "Podaj adres email",
+        errorMessage: "Nieprawidłowy adres e-mail.",
         reference: React.createRef()
       },
       {
-        labelText: 'Hasło',
-        type: 'password',
-        placeholder: 'Podaj hasło.',
-        errorMessage: 'Nieprawidłowe hasło.',
+        labelText: "Hasło",
+        type: "password",
+        placeholder: "Podaj hasło.",
+        errorMessage: "Nieprawidłowe hasło.",
         reference: React.createRef()
       }
     ];
   }
+
+  loginPost = async user => {
+    console.log(user);
+    try {
+      await axios.post("http://localhost:3001/signin", {
+        email: user[0],
+        password: user[1]
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   //receives array of input values, in Login case it will be 2 element array where index 0 is email and index 1 is password
   //validateLogin method will be passed as props to <Form /> component
@@ -35,15 +47,15 @@ export default class Login extends React.Component {
     const emailflipError = this.loginConfig[0].reference.current.flipError;
     const passwordflipError = this.loginConfig[1].reference.current.flipError;
 
-    try {
-      const result = await axios.post('http://localhost:3001/users', {
-        email: inputsValues[0],
-        password: inputsValues[1]
-      });
-      console.log(result);
-    } catch (err) {
-      console.log(err);
-    }
+    // try {
+    //   const result = await axios.post("http://localhost:3001/users", {
+    //     email: inputsValues[0],
+    //     password: inputsValues[1]
+    //   });
+    //   console.log(result);
+    // } catch (err) {
+    //   console.log(err);
+    // }
   };
 
   render() {
@@ -58,6 +70,7 @@ export default class Login extends React.Component {
                 name="Zaloguj się"
                 config={this.loginConfig}
                 validate={this.validateLogin}
+                submit={this.loginPost}
               />
             </div>
           </div>
